@@ -33,7 +33,19 @@ namespace AjaxDefinex.Data
                 new Product { Id = 5, Name = "Sandalye", Price = 1200, CategoryId = 2 },
                 new Product { Id = 6, Name = "Koltuk", Price = 5000, CategoryId = 2 },
                 new Product { Id = 7, Name = "Gömlek", Price = 500, CategoryId = 3 },
-                new Product { Id = 8, Name = "Pantolon", Price = 600, CategoryId = 3 }
+                new Product { Id = 8, Name = "Pantolon", Price = 600, CategoryId = 3 },
+                new Product { Id = 9, Name = "Tablet", Price = 4500, CategoryId = 1 },
+                new Product { Id = 10, Name = "Monitör", Price = 2500, CategoryId = 1 },
+                new Product { Id = 11, Name = "Televizyon", Price = 7000, CategoryId = 1 },
+                new Product { Id = 12, Name = "Yatak", Price = 2000, CategoryId = 2 },
+                new Product { Id = 13, Name = "Kitaplık", Price = 1500, CategoryId = 2 },
+                new Product { Id = 14, Name = "Çanta", Price = 700, CategoryId = 3 },
+                new Product { Id = 15, Name = "Ayakkabı", Price = 900, CategoryId = 3 },
+                new Product { Id = 16, Name = "Ceket", Price = 1000, CategoryId = 3 },
+                new Product { Id = 17, Name = "Buzdolabı", Price = 4500, CategoryId = 1 },
+                new Product { Id = 18, Name = "Mikrodalga", Price = 1500, CategoryId = 1 },
+                new Product { Id = 19, Name = "Fırın", Price = 2500, CategoryId = 1 },
+                new Product { Id = 20, Name = "Kettle", Price = 400, CategoryId = 1 }
             );
         }
     }
