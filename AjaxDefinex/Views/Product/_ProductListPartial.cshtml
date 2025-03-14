@@ -1,0 +1,52 @@
+﻿@model IEnumerable<ProductViewModel>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        <i class="bi bi-info-circle me-2"></i>
+        Arama kriterlerine uygun ürün bulunamadı.
+    </div>
+}
+else
+{
+    <div class="card shadow-sm">
+        <div class="card-header bg-light">
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Ürünler</h5>
+                <span class="badge bg-primary rounded-pill">@Model.Count() ürün</span>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Ürün Adı</th>
+                        <th scope="col">Kategori</th>
+                        <th scope="col" class="text-end">Fiyat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var product in Model)
+                    {
+                        <tr>
+                            <td>@product.Id</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="bg-light rounded-3 p-2 me-3">
+                                        <i class="bi bi-box-seam text-primary"></i>
+                                    </div>
+                                    <span class="fw-medium">@product.Name</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge bg-light text-dark">@product.CategoryName</span>
+                            </td>
+                            <td class="text-end fw-bold">@product.Price.ToString("N2") ₺</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

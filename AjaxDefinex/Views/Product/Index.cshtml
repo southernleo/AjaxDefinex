@@ -1,0 +1,103 @@
+﻿@model SearchViewModel
+@{
+    ViewData["Title"] = "Ürün Kataloğu";
+}
+
+<div class="container py-5">
+    <!-- Başlık ve açıklama -->
+    <div class="row mb-4">
+        <div class="col-md-8">
+            <h2 class="fw-bold text-primary">Ürün Kataloğu</h2>
+            <p class="text-muted">Aradığınız ürünü hızlıca bulun</p>
+        </div>
+    </div>
+
+    <!-- Arama ve filtreleme kartı -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-text bg-light">
+                            <i class="bi bi-search"></i>
+                        </span>
+                        <input type="text" id="searchInput" class="form-control border-start-0" placeholder="Ürün adı ile arayın...">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <select id="categorySelect" class="form-select">
+                        <option value="0">Tüm Kategoriler</option>
+                        @foreach (var category in Model.Categories)
+                        {
+                            <option value="@category.Id">@category.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-light">
+            <div class="d-flex justify-content-between align-items-center">
+                <small class="text-muted">Anlık arama özelliği aktif</small>
+                <button id="clearButton" class="btn btn-sm btn-outline-secondary">
+                    <i class="bi bi-x-circle me-1"></i>Temizle
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ürün listesi -->
+    <div id="productResults" class="mb-4">
+        <!-- Buraya ürünler yüklenecek -->
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Arama fonksiyonu
+            function performSearch() {
+                var searchTerm = $("#searchInput").val();
+                var categoryId = $("#categorySelect").val();
+
+                $("#productResults").html('<div class="d-flex justify-content-center my-5"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Yükleniyor...</span></div></div>');
+
+                $.ajax({
+                    url: '@Url.Action("SearchProducts", "Product")',
+                    type: 'GET',
+                    data: { searchTerm: searchTerm, categoryId: categoryId },
+                    success: function (data) {
+                        $("#productResults").html(data);
+                    },
+                    error: function (xhr, status, error) {
+                        $("#productResults").html('<div class="alert alert-danger"><i class="bi bi-exclamation-triangle me-2"></i>Arama sırasında bir hata oluştu.</div>');
+                        console.error("Arama hatası:", error);
+                    }
+                });
+            }
+
+         
+
+            // Input değiştiğinde anlık arama 
+            let searchTimeout;
+            $("#searchInput").on('keyup', function () {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(performSearch );
+            });
+
+            // Kategori değiştiğinde anlık arama
+            $("#categorySelect").change(function () {
+                performSearch();
+            });
+
+            // Temizle butonuna tıklama
+            $("#clearButton").click(function () {
+                $("#searchInput").val('');
+                $("#categorySelect").val('0');
+                performSearch();
+            });
+
+            // Sayfa yüklendiğinde tüm ürünleri göster
+            performSearch();
+        });
+    </script>
+}
