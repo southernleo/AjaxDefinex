@@ -16,7 +16,7 @@ namespace AjaxDefinex.Data.Repositories
 
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                query = query.Where(p => p.Name.Contains(searchTerm));
+                query = query.Where(p => p.Name.StartsWith(searchTerm));
             }
 
             if (categoryId.HasValue && categoryId > 0)
